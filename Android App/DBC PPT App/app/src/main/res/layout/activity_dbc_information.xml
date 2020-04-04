@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dbc_information"
+    android:padding="20dp">
+
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:src="@drawable/dbc_logo"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/about_dbc"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_dbc"
+        android:layout_marginBottom="50dp"
+        app:cardCornerRadius="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:typeface="serif"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:text="DBC (Don Bosco Choir - English) has been at the heart of the Don Bosco Parish for a very long time.\n\nThrough the many years, we've strived for excellency and spirituality in everything that we do. \n\nDBC lies in the hearts of its members."/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
+</ScrollView>
