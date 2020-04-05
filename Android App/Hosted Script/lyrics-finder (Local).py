@@ -42,10 +42,10 @@ if(not path.exists(os.path.join(path_to_here, "images"))):
 
 
 config = {
-  "apiKey": "AIzaSyDCctsYMRRIhyuRgnglMedq-0-T8k4kq1k",
-  "authDomain": "dbc-ppt-creator.firebaseapp.com",
-  "databaseURL": "https://dbc-ppt-creator.firebaseio.com",
-  "storageBucket": "dbc-ppt-creator.appspot.com"
+  "apiKey": "",
+  "authDomain": "<App Project ID>.firebaseapp.com",
+  "databaseURL": "",
+  "storageBucket": ""
 }
 
 firebase = pyrebase.initialize_app(config)
