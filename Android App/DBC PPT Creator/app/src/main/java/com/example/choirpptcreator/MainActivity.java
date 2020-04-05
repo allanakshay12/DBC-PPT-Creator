@@ -72,6 +72,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 
 import retrofit2.Call;
@@ -731,7 +732,10 @@ public class MainActivity extends AppCompatActivity {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             final StorageReference storageRef = storage.getReference();
 
-            riversRef = storageRef.child(Image_Path = ("images/" + back_img_path.getText().toString().trim()));
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString();
+
+            riversRef = storageRef.child(Image_Path = ("images/" + randomUUIDString.trim() + back_img_path.getText().toString().trim().substring(back_img_path.getText().toString().trim().lastIndexOf('.'), back_img_path.getText().toString().trim().length())));
             uploadTask = riversRef.putFile(filePath);
 
             // Register observers to listen for when the download is done or if it fails
