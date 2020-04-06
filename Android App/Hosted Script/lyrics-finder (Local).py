@@ -169,43 +169,43 @@ def Reading_Resultify(choice):
     resp_reading = False
     for word in splitstring:
         
-        if (cur_reading==False and word.lower()=="reading"):
+        if (cur_reading==False and word.lower().strip()=="reading"):
             cur_reading = True
             read_start_count = count+1
-            
-        if (resp_reading==False and word.lower()=="responsorial"):
+
+        if (resp_reading==False and word.lower().strip()=="responsorial"):
             resp_reading = True
             resp_start_count = count+2
 
-        if (gosp_reading==False and word.lower()=="gospel"):
-            if(splitstring[count+1].lower() == "acclamation"):
+        if (gosp_reading==False and word.lower().strip()=="gospel"):
+            if(splitstring[count+1].lower().strip() == "acclamation"):
                 count = count + 1
                 continue
-            elif(splitstring[count+1].lower() == "reflection"):
+            elif(splitstring[count+1].lower().strip() == "reflection"):
                 break
             gosp_reading = True
             gosp_start_count = count+1
-            
-            
-        if(cur_reading==True and splitstring[count].lower()=="the" and splitstring[count+1].lower()=="word" and splitstring[count+2].lower()=="of" and splitstring[count+3].lower()=="the" and (splitstring[count+4].lower()=="lord" or splitstring[count+4].lower()=="lord.")):
+
+
+        if(cur_reading==True and splitstring[count].lower().strip()=="the" and splitstring[count+1].lower().strip()=="word" and splitstring[count+2].lower().strip()=="of" and splitstring[count+3].lower().strip()=="the" and (splitstring[count+4].lower().strip()=="lord" or splitstring[count+4].lower().strip()=="lord.")):
             readings.append("")
             cur_reading = False
             read_end_count = count
             for i in range(read_start_count, read_end_count):
                 readings[reading_count] = readings[reading_count] + splitstring[i] + " "
-            
+            readings[reading_count] = readings[reading_count] + "\n\n" + "The Word of the Lord."
             reading_count = reading_count + 1
-        
-        if(gosp_reading==True and splitstring[count].lower()=="the" and splitstring[count+1].lower()=="gospel" and splitstring[count+2].lower()=="of" and splitstring[count+3].lower()=="the" and (splitstring[count+4].lower()=="lord" or splitstring[count+4].lower()=="lord.")):
+
+        if(gosp_reading==True and splitstring[count].lower().strip()=="the" and splitstring[count+1].lower().strip()=="gospel" and splitstring[count+2].lower().strip()=="of" and splitstring[count+3].lower().strip()=="the" and (splitstring[count+4].lower().strip()=="lord" or splitstring[count+4].lower().strip()=="lord.")):
             gospel.append("")
             gosp_reading = False
             gosp_end_count = count
             for i in range(gosp_start_count, gosp_end_count):
                 gospel[gospel_count] = gospel[gospel_count] + splitstring[i] + " "
-            
+            gospel[gospel_count] = gospel[gospel_count] +"\n\n" + "The Gospel of the Lord." 
             gospel_count = gospel_count + 1
 
-        if(resp_reading==True and (splitstring[count].lower()=="second" or word.lower()=="gospel" or splitstring[count].lower()=="first" or splitstring[count].lower()=="third" or splitstring[count].lower()=="fourth" or splitstring[count].lower()=="fifth")):
+        if(resp_reading==True and (splitstring[count].lower().strip()=="second" or word.lower().strip()=="gospel" or splitstring[count].lower().strip()=="first" or splitstring[count].lower().strip()=="third" or splitstring[count].lower().strip()=="fourth" or splitstring[count].lower().strip()=="fifth")):
             response.append("")
             resp_reading = False
             resp_end_count = count
@@ -213,7 +213,7 @@ def Reading_Resultify(choice):
                 if(splitstring[i][0].isdigit()):
                     response[response_count] = response[response_count] + "\n\n"
                 response[response_count] = response[response_count] + splitstring[i] + " "
-            
+
             response_count = response_count + 1
             
         count = count + 1
