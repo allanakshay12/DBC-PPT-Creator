@@ -567,15 +567,16 @@ def Generate_PPT(ppt_datax):
     List_Splitter(ppt_data['acclamation_list'], BackgroundPicturePath, TitleFontColour, ContentFontColour, prs)
 
 
-    prayer_title = ""
-    prayer_content = "Priest:\nThe Lord be with you.\n\nPeople:\nAnd with your spirit."
-
-    Generate_Unit_Slide(prayer_title, prayer_content, BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
-
+    
     gospel_count = 0
 
     for data in ppt_data['gospel_list']:
-        gospel_dude = ""
+        prayer_title = ""
+        prayer_content = "Priest:\nThe Lord be with you.\n\nPeople:\nAnd with your spirit."
+
+        Generate_Unit_Slide(prayer_title, prayer_content, BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
+
+        gospel_dude = "________"
         if("matthew" in ppt_data['gospel_list'][gospel_count]['title'].lower()):
             gospel_dude = "Matthew"
         elif("mark" in ppt_data['gospel_list'][gospel_count]['title'].lower()):
@@ -591,7 +592,7 @@ def Generate_PPT(ppt_datax):
         Generate_Unit_Slide(prayer_title, prayer_content, BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
 
 
-        Generate_Unit_Slide("", "", BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
+        #Generate_Unit_Slide("", "", BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
 
         List_Splitter(ppt_data['gospel_list'][gospel_count:gospel_count+1], BackgroundPicturePath, TitleFontColour, ContentFontColour, prs)
         gospel_count = gospel_count + 1
