@@ -48,7 +48,6 @@ path_to_here = os.path.dirname(os.path.abspath(__file__))
 if(not path.exists(os.path.join(path_to_here, "images"))):
     os.mkdir(os.path.join(path_to_here, "images"))
 
-Prayers_Pres = Presentation(os.path.join(path_to_here, "Template.pptx"))
 
 
 config = {
@@ -57,6 +56,7 @@ config = {
   "databaseURL": "",
   "storageBucket": ""
 }
+
 
 firebase = pyrebase.initialize_app(config)
 
@@ -190,10 +190,16 @@ def Reading_Resultify(choice):
     read_start_count = read_end_count = 0
     gosp_start_count = gosp_end_count = 0
     resp_start_count = resp_end_count  = 0
+    acc_start_count = acc_end_count  = 0
     cur_reading = False
     gosp_reading = False
     resp_reading = False
+    acc_reading = False
     for word in splitstring:
+
+        if (acc_reading==False and word.lower().strip()=="gospel" and splitstring[count+1].lower().strip() == "acclamation"):
+            acc_reading = True
+            acc_start_count = count+2
 
         if (cur_reading==False and word.lower().strip()=="reading"):
             cur_reading = True
@@ -231,7 +237,7 @@ def Reading_Resultify(choice):
             gospel[gospel_count] = gospel[gospel_count] +"\n\n" + "The Gospel of the Lord." 
             gospel_count = gospel_count + 1
 
-        if(resp_reading==True and (splitstring[count].lower().strip()=="second" or word.lower().strip()=="gospel" or splitstring[count].lower().strip()=="first" or splitstring[count].lower().strip()=="third" or splitstring[count].lower().strip()=="fourth" or splitstring[count].lower().strip()=="fifth")):
+        if(resp_reading==True and (splitstring[count].lower().strip()=="second" or splitstring[count].lower().strip()=="gospel" or splitstring[count].lower().strip()=="first" or splitstring[count].lower().strip()=="third" or splitstring[count].lower().strip()=="fourth" or splitstring[count].lower().strip()=="fifth")):
             response.append("")
             resp_reading = False
             resp_end_count = count
@@ -241,6 +247,16 @@ def Reading_Resultify(choice):
                 response[response_count] = response[response_count] + splitstring[i] + " "
 
             response_count = response_count + 1
+
+        if(acc_reading==True and splitstring[count].lower().strip()=="gospel"):
+            gospel.append("")
+            gospel[gospel_count] = gospel[gospel_count] + "Gospel Acclamation:\n\n" 
+            acc_reading = False
+            acc_end_count = count
+            for i in range(acc_start_count, acc_end_count):
+                gospel[gospel_count] = gospel[gospel_count] + splitstring[i] + " "
+            gospel[gospel_count] = gospel[gospel_count].strip() 
+            gospel_count = gospel_count + 1
 
         count = count + 1
 
@@ -270,7 +286,7 @@ def Reading_Resultify(choice):
 
         return copied_slide """
 
-def Generate_Prayer_Slide(BackgroundPicturePath, TitleFontColour, ContentFontColour, title_place_holder, content_place_holder, slide_no, prs):
+"""def Generate_Prayer_Slide(BackgroundPicturePath, TitleFontColour, ContentFontColour, title_place_holder, content_place_holder, slide_no, prs):
     temp_slide = Prayers_Pres.slides[slide_no]
     for shape in temp_slide.placeholders:
         print('%d %s' % (shape.placeholder_format.idx, shape.name))
@@ -303,7 +319,7 @@ def Generate_Prayer_Slide(BackgroundPicturePath, TitleFontColour, ContentFontCol
 
     temp_font_content = temp_content.text_frame
     new_slide_content.text_frame = temp_font_content
-    new_slide_content.textframe.paragraph[0].font.color.rgb = RGBColor(int(ContentFontColour[0]), int(ContentFontColour[1]), int(ContentFontColour[2]))
+    new_slide_content.textframe.paragraph[0].font.color.rgb = RGBColor(int(ContentFontColour[0]), int(ContentFontColour[1]), int(ContentFontColour[2]))"""
 
 
 

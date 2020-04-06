@@ -50,13 +50,13 @@ if(not path.exists(os.path.join(path_to_here, "images"))):
 
 
 
-
 config = {
   "apiKey": "",
   "authDomain": "<App Project ID>.firebaseapp.com",
   "databaseURL": "",
   "storageBucket": ""
 }
+
 
 firebase = pyrebase.initialize_app(config)
 
@@ -190,10 +190,16 @@ def Reading_Resultify(choice):
     read_start_count = read_end_count = 0
     gosp_start_count = gosp_end_count = 0
     resp_start_count = resp_end_count  = 0
+    acc_start_count = acc_end_count  = 0
     cur_reading = False
     gosp_reading = False
     resp_reading = False
+    acc_reading = False
     for word in splitstring:
+
+        if (acc_reading==False and word.lower().strip()=="gospel" and splitstring[count+1].lower().strip() == "acclamation"):
+            acc_reading = True
+            acc_start_count = count+2
 
         if (cur_reading==False and word.lower().strip()=="reading"):
             cur_reading = True
@@ -231,7 +237,7 @@ def Reading_Resultify(choice):
             gospel[gospel_count] = gospel[gospel_count] +"\n\n" + "The Gospel of the Lord." 
             gospel_count = gospel_count + 1
 
-        if(resp_reading==True and (splitstring[count].lower().strip()=="second" or word.lower().strip()=="gospel" or splitstring[count].lower().strip()=="first" or splitstring[count].lower().strip()=="third" or splitstring[count].lower().strip()=="fourth" or splitstring[count].lower().strip()=="fifth")):
+        if(resp_reading==True and (splitstring[count].lower().strip()=="second" or splitstring[count].lower().strip()=="gospel" or splitstring[count].lower().strip()=="first" or splitstring[count].lower().strip()=="third" or splitstring[count].lower().strip()=="fourth" or splitstring[count].lower().strip()=="fifth")):
             response.append("")
             resp_reading = False
             resp_end_count = count
@@ -241,6 +247,16 @@ def Reading_Resultify(choice):
                 response[response_count] = response[response_count] + splitstring[i] + " "
 
             response_count = response_count + 1
+
+        if(acc_reading==True and splitstring[count].lower().strip()=="gospel"):
+            gospel.append("")
+            gospel[gospel_count] = gospel[gospel_count] + "Gospel Acclamation:\n\n" 
+            acc_reading = False
+            acc_end_count = count
+            for i in range(acc_start_count, acc_end_count):
+                gospel[gospel_count] = gospel[gospel_count] + splitstring[i] + " "
+            gospel[gospel_count] = gospel[gospel_count].strip() 
+            gospel_count = gospel_count + 1
 
         count = count + 1
 
