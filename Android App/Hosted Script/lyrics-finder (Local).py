@@ -224,7 +224,7 @@ def Reading_Resultify(choice):
 
         if(acc_reading==True and splitstring[count].lower().strip()=="gospel"):
             gospel.append("")
-            gospel[gospel_count] = gospel[gospel_count] + "Gospel Acclamation:\n\n" 
+            gospel[gospel_count] = gospel[gospel_count] + "Gospel Acclamation (Keep this as the title)\n\n" 
             acc_reading = False
             acc_end_count = count
             for i in range(acc_start_count, acc_end_count):

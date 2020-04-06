@@ -50,13 +50,13 @@ if(not path.exists(os.path.join(path_to_here, "images"))):
 
 
 
+
 config = {
   "apiKey": "",
   "authDomain": "<App Project ID>.firebaseapp.com",
   "databaseURL": "",
   "storageBucket": ""
 }
-
 
 firebase = pyrebase.initialize_app(config)
 
@@ -232,6 +232,7 @@ def Reading_Resultify(choice):
             gospel.append("")
             gosp_reading = False
             gosp_end_count = count
+            gospel[gospel_count] = gospel[gospel_count] + "Keep the title as 'Gospel of <Gospel Name>'\n\n"
             for i in range(gosp_start_count, gosp_end_count):
                 gospel[gospel_count] = gospel[gospel_count] + splitstring[i] + " "
             gospel[gospel_count] = gospel[gospel_count] +"\n\n" + "The Gospel of the Lord." 
@@ -250,7 +251,7 @@ def Reading_Resultify(choice):
 
         if(acc_reading==True and splitstring[count].lower().strip()=="gospel"):
             gospel.append("")
-            gospel[gospel_count] = gospel[gospel_count] + "Gospel Acclamation:\n\n" 
+            gospel[gospel_count] = gospel[gospel_count] + "Keep the title as 'Gospel Acclamation'\n\n" 
             acc_reading = False
             acc_end_count = count
             for i in range(acc_start_count, acc_end_count):
@@ -559,22 +560,42 @@ def Generate_PPT(ppt_datax):
 
     List_Splitter(ppt_data['reading_list'], BackgroundPicturePath, TitleFontColour, ContentFontColour, prs)
 
+    if ("gospel acclamation" in ppt_data['gospel_list'][0]['title'].lower().strip()):
+        ppt_data['acclamation_list'].append(ppt_data['gospel_list'][0])
+        ppt_data['gospel_list'].pop(0)
+
     List_Splitter(ppt_data['acclamation_list'], BackgroundPicturePath, TitleFontColour, ContentFontColour, prs)
+
 
     prayer_title = ""
     prayer_content = "Priest:\nThe Lord be with you.\n\nPeople:\nAnd with your spirit."
 
     Generate_Unit_Slide(prayer_title, prayer_content, BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
 
-    prayer_title = ""
-    prayer_content = "Priest:\nA reading from the Holy Gospel  according to St. ________\n\nPeople:\nGlory to you, O Lord."
+    gospel_count = 0
 
-    Generate_Unit_Slide(prayer_title, prayer_content, BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
+    for data in ppt_data['gospel_list']:
+        gospel_dude = ""
+        if("matthew" in ppt_data['gospel_list'][gospel_count]['title'].lower()):
+            gospel_dude = "Matthew"
+        elif("mark" in ppt_data['gospel_list'][gospel_count]['title'].lower()):
+            gospel_dude = "Mark"
+        elif("luke" in ppt_data['gospel_list'][gospel_count]['title'].lower()):
+            gospel_dude = "Luke"
+        elif("john" in ppt_data['gospel_list'][gospel_count]['title'].lower()):
+            gospel_dude = "John"
+
+        prayer_title = ""
+        prayer_content = "Priest:\nA reading from the Holy Gospel  according to St. " + gospel_dude + ".\n\nPeople:\nGlory to you, O Lord."
+
+        Generate_Unit_Slide(prayer_title, prayer_content, BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
 
 
-    Generate_Unit_Slide("", "", BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
+        Generate_Unit_Slide("", "", BackgroundPicturePath, TitleFontColour, ContentFontColour, prs, PP_ALIGN.CENTER)
 
-    List_Splitter(ppt_data['gospel_list'], BackgroundPicturePath, TitleFontColour, ContentFontColour, prs)
+        List_Splitter(ppt_data['gospel_list'][gospel_count:gospel_count+1], BackgroundPicturePath, TitleFontColour, ContentFontColour, prs)
+        gospel_count = gospel_count + 1
+
 
     prayer_title = "The Apostle's Creed"
     prayer_content = "I believe in God, the Father\nAlmighty, Creator of heaven and\nearth, and in Jesus Christ, His only\nSon, our Lord, who was "
