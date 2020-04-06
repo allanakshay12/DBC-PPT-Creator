@@ -173,11 +173,11 @@ def Reading_Resultify(choice):
             cur_reading = True
             read_start_count = count+1
             
-        elif (resp_reading==False and word.lower()=="responsorial"):
+        if (resp_reading==False and word.lower()=="responsorial"):
             resp_reading = True
             resp_start_count = count+2
 
-        elif (gosp_reading==False and word.lower()=="gospel"):
+        if (gosp_reading==False and word.lower()=="gospel"):
             if(splitstring[count+1].lower() == "acclamation"):
                 count = count + 1
                 continue
@@ -187,7 +187,7 @@ def Reading_Resultify(choice):
             gosp_start_count = count+1
             
             
-        elif(cur_reading==True and splitstring[count].lower()=="the" and splitstring[count+1].lower()=="word" and splitstring[count+2].lower()=="of" and splitstring[count+3].lower()=="the" and (splitstring[count+4].lower()=="lord" or splitstring[count+4].lower()=="lord.")):
+        if(cur_reading==True and splitstring[count].lower()=="the" and splitstring[count+1].lower()=="word" and splitstring[count+2].lower()=="of" and splitstring[count+3].lower()=="the" and (splitstring[count+4].lower()=="lord" or splitstring[count+4].lower()=="lord.")):
             readings.append("")
             cur_reading = False
             read_end_count = count
@@ -196,7 +196,7 @@ def Reading_Resultify(choice):
             
             reading_count = reading_count + 1
         
-        elif(gosp_reading==True and splitstring[count].lower()=="the" and splitstring[count+1].lower()=="gospel" and splitstring[count+2].lower()=="of" and splitstring[count+3].lower()=="the" and (splitstring[count+4].lower()=="lord" or splitstring[count+4].lower()=="lord.")):
+        if(gosp_reading==True and splitstring[count].lower()=="the" and splitstring[count+1].lower()=="gospel" and splitstring[count+2].lower()=="of" and splitstring[count+3].lower()=="the" and (splitstring[count+4].lower()=="lord" or splitstring[count+4].lower()=="lord.")):
             gospel.append("")
             gosp_reading = False
             gosp_end_count = count
@@ -205,7 +205,7 @@ def Reading_Resultify(choice):
             
             gospel_count = gospel_count + 1
 
-        elif(resp_reading==True and (splitstring[count].lower()=="second" or word.lower()=="gospel" or splitstring[count].lower()=="first" or splitstring[count].lower()=="third" or splitstring[count].lower()=="fourth" or splitstring[count].lower()=="fifth")):
+        if(resp_reading==True and (splitstring[count].lower()=="second" or word.lower()=="gospel" or splitstring[count].lower()=="first" or splitstring[count].lower()=="third" or splitstring[count].lower()=="fourth" or splitstring[count].lower()=="fifth")):
             response.append("")
             resp_reading = False
             resp_end_count = count
